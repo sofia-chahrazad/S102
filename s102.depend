@@ -13,3 +13,21 @@
 	<SDL_image.h>
 	"Moteur.h"
 
+1764928545 source:c:\users\sovit\documents\github\s102\src\image.cpp
+	<SDL_image.h>
+	<exception>
+	"Image.h"
+
+1764928545 source:c:\users\sovit\documents\github\s102\src\main.cpp
+	<vector>
+	<exception>
+	"Moteur.h"
+	"Image.h"
+	<cstdlib>
+	<cstdlib>
+	<ctime>
+
+1764928545 source:c:\users\sovit\documents\github\s102\src\moteur.cpp
+	<SDL_image.h>
+	"Moteur.h"
+
