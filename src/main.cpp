@@ -150,6 +150,7 @@ int main(int, char**) // Version special du main, ne pas modifier
         else x--;
 
         /*
+        
           Affiche l'image en se cadencant sur la frequence de
           rafraichissement de l'ecran (donc va en general mettre le
           programme en pause jusqu'a ce que l'ecran soit rafraichi). En
