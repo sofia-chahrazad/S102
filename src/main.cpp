@@ -5,7 +5,9 @@
 #include <cstdlib>
 #include <cstdlib>
 #include <ctime>
-
+#include "Personnage.h"
+#include "Avatar.h"
+#include "Ennemi.h"
 
 
 
@@ -59,23 +61,28 @@ int main(int, char**) // Version special du main, ne pas modifier
     // TODO: charger images, creer personnages, etc.
     srand(time(nullptr));
 
+    int direction_perssonage = 0  ;
     Image fond;
     Image coffref;
     Image coffreo;
+    Image toutpersons;
+
     bool etat_coffre = false;
     int x=1,y=1;
     bool dirY = true;
     bool dirX = true;
     vector<Blob> blobs;
-    try
-    {
-        fond = Image(moteur, "assets/fond.png");
-        coffref = Image(moteur,"assets/coffre_ferme.png");
-        coffreo = Image(moteur,"assets/coffre_ouvert.png");
-    }catch(exception e){
-        cerr<<e.what();
-    }
+
+    fond = Image(moteur, "assets/fond.png");
+    coffref = Image(moteur,"assets/coffre_ferme.png");
+    coffreo = Image(moteur,"assets/coffre_ouvert.png");
+    toutpersons =Image(moteur,"assets/personnages.png");
+
     Blob b1(coffref,true,true);
+    Avatar personnage_simple= Avatar(toutpersons,0,0,3,0,BAS);
+    Ennemi ennemi1 = Ennemi(toutpersons,5,0,10,0,BAS);
+    Ennemi ennemi2 = Ennemi(toutpersons,0,5,1,4,BAS);
+
 
     bool quitter = false;
 
@@ -101,6 +108,18 @@ int main(int, char**) // Version special du main, ne pas modifier
             case ESPACE_RELACHE:
                 etat_coffre = false;
                 break;
+            case DROITE_APPUYE:
+                //personnage_simple.regarderDroite();
+                break;
+            case GAUCHE_APPUYE:
+                //personnage_simple.regarderGauche();
+                break;
+            case HAUT_APPUYE:
+                //personnage_simple.regarderHaut();
+                break;
+            case BAS_APPUYE:
+                //personnage_simple.regarderBas();
+                break;
             default:
                 break;
             }
@@ -119,6 +138,11 @@ int main(int, char**) // Version special du main, ne pas modifier
 
         // TODO: afficher vos personnages, objets, etc.;
         fond.dessiner(0,0);
+        personnage_simple.dessiner();
+        ennemi1.dessiner();
+        ennemi2.dessiner();
+        //personnage_simple.dessiner(5,0);
+        /*
         if(etat_coffre){
             coffreo.dessiner(x,y);
 
@@ -148,9 +172,9 @@ int main(int, char**) // Version special du main, ne pas modifier
         }
         if(dirX) x++;
         else x--;
+        */
 
         /*
-        
           Affiche l'image en se cadencant sur la frequence de
           rafraichissement de l'ecran (donc va en general mettre le
           programme en pause jusqu'a ce que l'ecran soit rafraichi). En
