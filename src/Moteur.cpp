@@ -1,5 +1,5 @@
 #include <SDL_image.h>
-
+#include <SDL_audio.h>
 #include "Moteur.h"
 
 Moteur::Moteur(const std::string& nomDuJeu, int fps)

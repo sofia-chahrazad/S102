@@ -5,10 +5,13 @@
 #include <cstdlib>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 #include "Personnage.h"
 #include "Avatar.h"
 #include "Ennemi.h"
-
+#include "Dictionnaire.h"
+#include "Objet.h"
+#include "Niveau.h"
 
 
 class Blob{
@@ -62,26 +65,51 @@ int main(int, char**) // Version special du main, ne pas modifier
     srand(time(nullptr));
 
     int direction_perssonage = 0  ;
+    int position_animation = 0;
     Image fond;
     Image coffref;
     Image coffreo;
     Image toutpersons;
+    Image lesObjects;
+    Image gameOver;
+    Image bravo;
+    ifstream entree;
+    Tuile t;
+    entree.open("assets/dictionnaire.txt");
+    Dictionnaire dictionnaire(entree);
+    cout<<endl;
+    dictionnaire.afficher();
+    cout<<endl;
+    dictionnaire.recherche("Troudfgs",t);
+    cout<<endl;
+    t.afficher();
+    cout<<endl;
+    ifstream niveau_fichier;
+    niveau_fichier.open("assets/niveau.txt");
 
-    bool etat_coffre = false;
-    int x=1,y=1;
-    bool dirY = true;
-    bool dirX = true;
-    vector<Blob> blobs;
+
+    //bool etat_coffre = false;
+    //int x=1,y=1;
+    //bool dirY = true;
+    //bool dirX = true;
+    //vector<Blob> blobs;
 
     fond = Image(moteur, "assets/fond.png");
-    coffref = Image(moteur,"assets/coffre_ferme.png");
-    coffreo = Image(moteur,"assets/coffre_ouvert.png");
+    //coffref = Image(moteur,"assets/coffre_ferme.png");
+    //coffreo = Image(moteur,"assets/coffre_ouvert.png");
     toutpersons =Image(moteur,"assets/personnages.png");
+    lesObjects = Image(moteur,"assets/objets.png");
+    gameOver = Image(moteur,"assets/gameover.png");
+    bravo = Image(moteur,"assets/bravo.png");
+    Niveau niveau1(lesObjects,dictionnaire,niveau_fichier);
+    cout<<endl<<"the bonus in this level are === "<<niveau1.getBonus()<<endl;
 
     Blob b1(coffref,true,true);
-    Avatar personnage_simple= Avatar(toutpersons,0,0,3,0,BAS);
-    Ennemi ennemi1 = Ennemi(toutpersons,5,0,10,0,BAS);
-    Ennemi ennemi2 = Ennemi(toutpersons,0,5,1,4,BAS);
+    Avatar personnage_simple= Avatar(toutpersons,1,2,3,0,BAS);
+    Ennemi ennemi1 = Ennemi(toutpersons,5,2,10,0,BAS);
+    Ennemi ennemi2 = Ennemi(toutpersons,01,5,1,4,DROITE);
+
+
 
 
     bool quitter = false;
@@ -92,6 +120,9 @@ int main(int, char**) // Version special du main, ne pas modifier
     {
         // I. Gestion des evenements
         Evenement evenement = moteur.evenementRecu();
+        niveau1.testerBonusEtPrendre(personnage_simple.getX(),personnage_simple.getY());
+
+
         while (evenement != AUCUN)
         {
             switch (evenement)
@@ -102,23 +133,23 @@ int main(int, char**) // Version special du main, ne pas modifier
                 break;
             // TODO: gerer les autres evenements
             case ESPACE_APPUYE:
-                etat_coffre = true;
-                blobs.push_back(Blob(coffref,true,true));
+                //etat_coffre = true;
+                //blobs.push_back(Blob(coffref,true,true));
                 break;
             case ESPACE_RELACHE:
-                etat_coffre = false;
+                //etat_coffre = false;
                 break;
             case DROITE_APPUYE:
-                //personnage_simple.regarderDroite();
+                personnage_simple.allerDroite(niveau1);
                 break;
             case GAUCHE_APPUYE:
-                //personnage_simple.regarderGauche();
+                personnage_simple.allerGauche(niveau1);
                 break;
             case HAUT_APPUYE:
-                //personnage_simple.regarderHaut();
+                personnage_simple.allerHaut(niveau1);
                 break;
             case BAS_APPUYE:
-                //personnage_simple.regarderBas();
+                personnage_simple.allerBas(niveau1);
                 break;
             default:
                 break;
@@ -138,9 +169,40 @@ int main(int, char**) // Version special du main, ne pas modifier
 
         // TODO: afficher vos personnages, objets, etc.;
         fond.dessiner(0,0);
-        personnage_simple.dessiner();
+        niveau1.dessiner();
+
+
+        if(moteur.animationsAmettreAjour()){
+            ennemi1.randDirection();
+            ennemi2.randDirection();
+            ennemi1.avancer(niveau1);
+            ennemi2.avancer(niveau1);
+            personnage_simple.mettreAjourAnimation();
+
+        }
+
         ennemi1.dessiner();
         ennemi2.dessiner();
+        personnage_simple.dessiner();
+
+
+
+        if(personnage_simple.touche(ennemi1)||personnage_simple.touche(ennemi2)||niveau1.gagne()){
+            moteur.attendre(1);
+            moteur.initialiserRendu();
+            if(niveau1.gagne()){
+
+                bravo.dessiner(32,48);
+            }else{
+                gameOver.dessiner(32,48);
+            }
+            moteur.finaliserRendu();
+            moteur.attendre(4);
+
+            quitter = true;
+
+        }
+
         //personnage_simple.dessiner(5,0);
         /*
         if(etat_coffre){
@@ -149,6 +211,7 @@ int main(int, char**) // Version special du main, ne pas modifier
         }else{
             coffref.dessiner(x,y);
         }
+
         for(int i = 0 ; i<blobs.size();i++){
             blobs[i].dessiner();
         }
@@ -183,6 +246,7 @@ int main(int, char**) // Version special du main, ne pas modifier
         */
         moteur.finaliserRendu();
     }
+
 
     return 0;
 }

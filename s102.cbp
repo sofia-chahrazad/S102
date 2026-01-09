@@ -35,17 +35,22 @@
 			<Add option="-ISDL2/include/SDL2" />
 		</Compiler>
 		<Linker>
-			<Add option="-lmingw32" />
 			<Add option="-LSDL2/lib" />
 			<Add option="-lSDL2main" />
 			<Add option="-lSDL2" />
 			<Add option="-lSDL2_image" />
 		</Linker>
-		<Unit filename="include/Moteur.h" />
+		<Unit filename="include/Avatar.h" />
+		<Unit filename="include/Ennemi.h" />
 		<Unit filename="include/Image.h" />
-		<Unit filename="src/main.cpp" />
-		<Unit filename="src/Moteur.cpp" />
+		<Unit filename="include/Moteur.h" />
+		<Unit filename="include/Personnage.h" />
+		<Unit filename="src/Avatar.cpp" />
+		<Unit filename="src/Ennemi.cpp" />
 		<Unit filename="src/Image.cpp" />
+		<Unit filename="src/Moteur.cpp" />
+		<Unit filename="src/Personnage.cpp" />
+		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
