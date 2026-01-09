@@ -1,6 +1,0 @@
-#ifndef ANNEMI_H_INCLUDED
-#define ANNEMI_H_INCLUDED
-
-
-
-#endif // ANNEMI_H_INCLUDED

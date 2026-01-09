@@ -9,7 +9,7 @@ class Dictionnaire{
     public:
     Dictionnaire( ifstream&);
     void afficher()const;
-    bool recherche(const string & val, Tuile& t);
+    bool recherche(const string & val, Tuile& t)const;
 };
 
 #endif // DICTIONNAIRE_H_INCLUDED

@@ -16,7 +16,7 @@ public:
         void regarderGauche();
         void regarderHaut();
         void regarderBas();
-        bool touche(const Ennemi& e);
+        bool touche(const Ennemi& e)const;
         void mettreAjourAnimation();
         int getX()const{return _perso.getX();}
         int getY()const{return _perso.getY();}

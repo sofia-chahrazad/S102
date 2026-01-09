@@ -6,7 +6,7 @@ class Ennemi {
     Personnage _perso;
 public:
         Ennemi(Image img, int x, int y, int skin_x, int skin_y, Direction d = BAS);
-        void dessiner();
+        void dessiner()const;
         void avancer(Niveau n);
         ///getters
         int getX()const;

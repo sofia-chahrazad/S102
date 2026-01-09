@@ -38,7 +38,7 @@ if(_perso.peutBougerVers(BAS, n)){
 
 };
 
-bool Avatar::touche(const Ennemi& e){
+bool Avatar::touche(const Ennemi& e)const{
     return (_perso.getX()== e.getX() && _perso.getY()==e.getY());
 }
 

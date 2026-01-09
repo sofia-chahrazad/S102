@@ -25,7 +25,7 @@ void Dictionnaire::afficher()const{
     }
 }
 ///binary search
-bool Dictionnaire::recherche(const string & val, Tuile& t){
+bool Dictionnaire::recherche(const string & val, Tuile& t)const{
     int ind = -1, d= 0 ,f = _lesTuiles.size()-1 ,m ;
     bool tr = false;
     while(!tr && d<=f){

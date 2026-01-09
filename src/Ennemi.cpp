@@ -8,7 +8,7 @@ Ennemi::Ennemi(Image img, int x, int y, int skin_x, int skin_y, Direction d )
 {
     _perso = Personnage( img,  x,  y,  skin_x,  skin_y,  d );
 }
-void Ennemi::dessiner()
+void Ennemi::dessiner()const
 {
     _perso.dessiner();
 }

@@ -27,7 +27,7 @@ public:
     void regarderHaut();
     void regarderBas();
     void deplacer(int dx, int dy);
-    bool peutBougerVers(Direction d, Niveau n);
+    bool peutBougerVers(Direction d, Niveau n)const;
     //getters les accesseurs
     Direction getDirection()const;
     int getX()const;

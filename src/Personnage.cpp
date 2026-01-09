@@ -48,7 +48,7 @@ void Personnage::deplacer(int dx, int dy){
     _y = _y+dy;
 }
 
-bool Personnage::peutBougerVers(Direction d, Niveau n){
+bool Personnage::peutBougerVers(Direction d, Niveau n)const{
     switch(d){
         case DROITE:
             return _x!=9 && n.caseEstLibre(_x+1,_y);
